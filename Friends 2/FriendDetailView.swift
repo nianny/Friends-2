@@ -14,37 +14,54 @@ struct FriendDetailView: View {
     @Binding var friend: Friend
     
     var body: some View {
-        ZStack{
-            Color.init(red: 175/255, green: 238/255, blue: 238/255, opacity: 0.5)
-                .edgesIgnoringSafeArea(.all)
-            VStack(spacing: 0){
-                Image(friend.slothImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-                
-                Image(friend.name)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 250, height: 250)
-                    .mask(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(lineWidth: 8)
-                            .foregroundColor(.white)
-                    )
-                    .offset(y: -250/2)
-                    .shadow(radius: 6)
-                    .padding(.bottom, -250/2+20)
-                
-                Text("\(Image(systemName: friend.icon)) \(friend.school)")
-                    .font(.system(size: 24))
+        ScrollView {
+            ZStack{
+                VStack(spacing: 0){
+                    Image(friend.slothImage)
+                        .resizable()
+                        .frame(height: 300)
+                        .scaledToFit()
+                    
+                    Image(friend.name)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 250, height: 250)
+                        .mask(Circle())
+                        .overlay(
+                            Circle()
+                                .stroke(lineWidth: 8)
+                                .foregroundColor(.white)
+                        )
+                        .offset(y: -250/2)
+                        .shadow(radius: 6)
+                        .padding(.bottom, -250/2+20)
+                    
+                    Text("\(Image(systemName: friend.icon)) \(friend.school)")
+                        .font(.system(size: 24))
+                        .padding()
+                    
+                    VStack(alignment: .leading){
+                        Text("Attack")
+                        Slider(value: $friend.attack,
+                               in: 0...15,
+                               step: 1
+                        )
+                        Text("Defense")
+                        Slider(value: $friend.defense,
+                               in: 0...15,
+                               step: 1
+                        )
+                        
+                    }
                     .padding()
-                
-                Spacer()
+                    Spacer()
+                }
             }
         }
         .navigationTitle(friend.name)
+        .background(Color.init(red: 175/255, green: 238/255, blue: 238/255, opacity: 0.5).edgesIgnoringSafeArea(.all))
+//        .background(Color.red)
+//        .edgesIgnoringSafeArea(.all)
     }
 }
 
