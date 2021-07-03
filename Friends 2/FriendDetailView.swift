@@ -15,7 +15,7 @@ struct FriendDetailView: View {
     
     var body: some View {
         ZStack{
-            Color.init(red: 175/255, green: 238/255, blue: 238/255)
+            Color.init(red: 175/255, green: 238/255, blue: 238/255, opacity: 0.5)
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0){
                 Image(friend.slothImage)
