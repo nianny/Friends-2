@@ -11,7 +11,7 @@ import SwiftUI
 
 struct FriendDetailView: View {
     
-    var friend: Friend
+    @Binding var friend: Friend
     
     var body: some View {
         ZStack{
@@ -50,7 +50,7 @@ struct FriendDetailView: View {
 
 struct FriendDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendDetailView(friend: Friend(name: "Eggy", icon: "pc", school: "RI", slothImage: "sloth1", age: 14))
+        FriendDetailView(friend: .constant(Friend(name: "Eggy", icon: "pc", school: "RI", slothImage: "sloth1", age: 14)))
     }
 }
 
