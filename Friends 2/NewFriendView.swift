@@ -15,6 +15,7 @@ struct NewFriendView: View {
                                attack: 0,
                                defense: 0,
                                types: [.normal])
+    @Binding var friends: [Friend]
     
     var body: some View {
         NavigationView{
@@ -60,9 +61,22 @@ struct NewFriendView: View {
                     }
                     
                     HStack{
-                        Text("Defense"),
+                        Text("Defense")
                             .frame(width: 100, alignment: .leading)
+                        Slider(value: $friend.defense, in: 0...15, step:1)
                     }
+                }
+                
+                Section {
+                    Button("Save") {
+                        friends.append(friend)
+//                        presentationMode.wrappedValue.dismiss()
+                    }
+                    
+                    Button("Discard Friend") {
+                        
+                    }
+                    .foregroundColor(.red)
                 }
             }
             .navigationTitle("New Friend")
@@ -72,6 +86,6 @@ struct NewFriendView: View {
 
 struct NewFriendView_Previews: PreviewProvider {
     static var previews: some View {
-        NewFriendView()
+        NewFriendView(friends: .constant([]))
     }
 }
