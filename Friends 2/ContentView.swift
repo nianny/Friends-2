@@ -13,43 +13,53 @@ struct ContentView: View {
                                  icon: "zzz",
                                  school: "Tinkercademy",
                                  slothImage: "sloth3",
-                                 age: 45),
+                                 types:[.water, .grass, .normal, .electric, .ice, .fire]),
                           Friend(name: "Jia Chen",
                                  icon: "swift",
                                  school: "Ngee Ann Poly",
                                  slothImage: "sloth2",
-                                 age: 17),
+                                 types:[.normal]),
                           Friend(name: "Ruirui",
                                  icon: "wifi",
                                  school: "NUS High",
                                  slothImage: "sloth1",
-                                 age: 14)]
+                                 types:[.electric])]
     
     var body: some View {
         NavigationView {
             ZStack{
-                List(0..<friends.count) { index in
-                    NavigationLink(destination: FriendDetailView(friend: $friends[index])) {
-                        Image(systemName: friends[index].icon)
-                        VStack(alignment: .leading){
-                            Text(friends[index].name)
-                                .font(.headline)
-                            HStack{
-                                Text(friends[index].school)
-                                    .font(.system(.subheadline))
-                                    .foregroundColor(.gray)
-                                Spacer()
-                                Text("Age: \(friends[index].age)")
-                                    .font(.system(.subheadline))
-                                    .foregroundColor(.gray)
-
+                List{
+                    ForEach (friends) { friend in
+                        let friendIndex = friends.firstIndex(of: friend)!
+                        
+                        NavigationLink(destination: FriendDetailView(friend: $friends[friendIndex])) {
+                            Image(systemName: friend.icon)
+                            VStack(alignment: .leading){
+                                Text(friend.name)
+                                    .font(.headline)
+                                HStack{
+                                    Text(friend.school)
+                                        .font(.system(.subheadline))
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    ForEach(friend.types, id: \.rawValue) { type in
+                                        Image(systemName: type.getSymbolName())
+                                        
+                                    }
+                                }
                             }
                         }
                     }
+                    .onDelete { offsets in
+                        friends.remove(atOffsets: offsets)
+                    }
+                    .onMove { source, destination in
+                        friends.move(fromOffsets: source, toOffset: destination)
+                    }
                 }
-//                .background(Color.red)
             }
             .navigationTitle("Friendo :D")
+            .navigationBarItems(leading: EditButton())
         }
     }
 }
