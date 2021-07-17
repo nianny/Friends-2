@@ -62,7 +62,6 @@ struct FriendDetailView: View {
                                in: 0...15,
                                step: 1
                         )
-                        
                     }
                     .padding()
                     Spacer()
@@ -70,7 +69,7 @@ struct FriendDetailView: View {
             }
         }
         .navigationTitle(friend.name)
-        .background(Color.init(red: 175/255, green: 238/255, blue: 238/255, opacity: 0.5).edgesIgnoringSafeArea(.all))
+//        .background(Color.init(red: 175/255, green: 238/255, blue: 238/255, opacity: 0.5).edgesIgnoringSafeArea(.all))
 //        .background(Color.red)
 //        .edgesIgnoringSafeArea(.all)
     }

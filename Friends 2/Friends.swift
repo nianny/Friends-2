@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Friend: Identifiable, Equatable {
+struct Friend: Identifiable, Equatable, Codable {
     var id = UUID()
     
     var name: String

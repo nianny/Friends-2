@@ -9,21 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
 //    let db = Firestore.firestore()
-    @State var friends = [Friend(name: "YJ",
-                                 icon: "zzz",
-                                 school: "Tinkercademy",
-                                 slothImage: "sloth3",
-                                 types:[.water, .grass, .normal, .electric, .ice, .fire]),
-                          Friend(name: "Jia Chen",
-                                 icon: "swift",
-                                 school: "Ngee Ann Poly",
-                                 slothImage: "sloth2",
-                                 types:[.normal]),
-                          Friend(name: "Ruirui",
-                                 icon: "wifi",
-                                 school: "NUS High",
-                                 slothImage: "sloth1",
-                                 types:[.electric])]
+    
+    @Binding var friends: [Friend]
+    @State var isSheetPresented = false
     
     var body: some View {
         NavigationView {
@@ -49,6 +37,7 @@ struct ContentView: View {
                                 }
                             }
                         }
+//                        .listRowBackground(Color.green)
                     }
                     .onDelete { offsets in
                         friends.remove(atOffsets: offsets)
@@ -59,13 +48,52 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Friendo :D")
-            .navigationBarItems(leading: EditButton())
+            .toolbar {
+                 ToolbarItem(placement: .navigationBarLeading) {
+                     EditButton()
+                 }
+                
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: {
+                        isSheetPresented = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+             }
+//            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+//                isSheetPresented = true
+//            }, label: {
+//                Image(systemName: "plus")
+//            }))
+        } .sheet(isPresented: $isSheetPresented) {
+            NewFriendView(friends: $friends)
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(friends: .constant([Friend(name: "YJ",
+                                      icon: "zzz",
+                                      school: "Tinkercademy",
+                                      slothImage: "sloth3",
+                                      attack: 10,
+                                      defense: 5,
+                                      types: [.ice, .fire]),
+                               Friend(name: "Jia Chen",
+                                      icon: "swift",
+                                      school: "Ngee Ann Poly",
+                                      slothImage: "sloth2",
+                                      attack: 15,
+                                      defense: 15,
+                                      types: [.electric, .ice]),
+                               Friend(name: "Zerui",
+                                      icon: "wifi",
+                                      school: "NUS High",
+                                      slothImage: "sloth1",
+                                      attack: 6,
+                                      defense: 3,
+                                      types: [.normal, .grass, .fire])]))
     }
 }

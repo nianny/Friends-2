@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewFriendView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State var friend = Friend(name: "",
                                icon: "triangle",
                                school: "",
@@ -70,11 +71,11 @@ struct NewFriendView: View {
                 Section {
                     Button("Save") {
                         friends.append(friend)
-//                        presentationMode.wrappedValue.dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     
                     Button("Discard Friend") {
-                        
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .foregroundColor(.red)
                 }
